@@ -1,0 +1,72 @@
+//Dallas Gage Harris Project 1 Progarmming Fundamentals 2.
+//Libraries necessary to complete this program efficently.
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <cctype>
+
+using namespace std;
+
+//void function for identifying the different types of characters and outputting the results.
+void coutner(string output);
+
+// Main functions to run a majority of the cose
+int main() {
+	//variable definitions
+	string output;
+	char ch;
+
+	do {
+		system("cls");
+		//open text.txt file and name variable readFile.
+		ifstream readFile("text.txt");
+
+		//check file is open
+		if (readFile.is_open()) {
+			//read file and write the text in opened file to string assigned to output.
+			while (getline(readFile, output)) {
+				cout << output << endl;
+
+				//run the function called counter with the defined cariable output.
+				coutner(output);
+
+			}
+		}
+
+		//file open validation.
+		else {
+			cout << "ERROR: Unable to open file!\n";
+		}
+
+		//Ask user if they would like to restrat the program
+		cout << "Would you like to restart the program?\n" << "Enter \'Y\' or \'N\': ";
+		//User answer and convert to uppercase to minimize input validation issues.
+		cin >> ch;
+		ch = toupper(ch);
+
+	} while (ch == 'Y');
+
+	return 0;
+}
+
+//What the called void actually does
+void coutner(string output) {
+	//variable definition
+	int upper = 0, lower = 0, number = 0;
+
+	//for loop to count each character in the string variable output.
+	for (int i = 0; i < output.length(); i++) {
+		//if string output == A-Z, a-z, or 1-9, count it to the respective variable
+		if (output[i] >= 'A' && output[i] <= 'Z')
+			upper++;
+		else if (output[i] >= 'a' && output[i] <= 'z')
+			lower++;
+		else if (output[i] >= '0' && output[i] <= '9')
+			number++;
+	}
+
+	//output the counted characters
+	cout << "Upper case letters: " << upper << endl;
+	cout << "Lower case letters : " << lower << endl;
+	cout << "Number : " << number << endl;
+}
